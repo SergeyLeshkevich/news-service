@@ -1,0 +1,11 @@
+ru.clevertec.news
+ru.clevertec.news.aop
+ru.clevertec.news.config
+ru.clevertec.news.controller
+ru.clevertec.news.entity
+ru.clevertec.news.entity.dto
+ru.clevertec.news.mapper
+ru.clevertec.news.repository
+ru.clevertec.news.search
+ru.clevertec.news.service
+ru.clevertec.news.util

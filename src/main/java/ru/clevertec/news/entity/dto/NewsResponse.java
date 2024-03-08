@@ -3,6 +3,7 @@ package ru.clevertec.news.entity.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import ru.clevertec.news.entity.User;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public record NewsResponse(
@@ -16,5 +17,5 @@ public record NewsResponse(
 
         String text,
 
-        User user) {
+        User user)  implements Serializable {
 }

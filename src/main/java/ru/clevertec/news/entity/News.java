@@ -10,9 +10,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.search.mapper.pojo.automaticindexing.ReindexOnUpdate;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
@@ -21,11 +20,9 @@ import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexedEmb
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.IndexingDependency;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Builder
 @Indexed
 @NoArgsConstructor
@@ -57,23 +54,4 @@ public class News {
 
     @Column(name = "is_archive",nullable = false)
     private boolean isArchived;
-
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        News news = (News) o;
-        return isArchived == news.isArchived
-                && Objects.equals(id, news.id)
-                && Objects.equals(time, news.time)
-                && Objects.equals(title, news.title)
-                && Objects.equals(text, news.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, time, title, text, isArchived);
-    }
 }

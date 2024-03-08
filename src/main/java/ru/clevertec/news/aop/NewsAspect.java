@@ -3,6 +3,7 @@ package ru.clevertec.news.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import ru.clevertec.cache.Cache;
 import ru.clevertec.cache.CacheFactory;
@@ -19,6 +20,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Aspect
 @Component
+@Profile("prod")
 public class NewsAspect {
 
     private final CacheFactory<Long, NewsResponse> cacheFactory;

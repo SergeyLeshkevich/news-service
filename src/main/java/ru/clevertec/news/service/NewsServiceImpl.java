@@ -6,6 +6,8 @@ import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.engine.search.sort.dsl.SearchSortFactory;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -55,6 +57,7 @@ public class NewsServiceImpl implements NewsService {
      * @throws EntityNotFoundException if the news item is not found or is archived.
      */
     @Override
+    @Cacheable(value = "api-cache",key = "#id")
     public NewsResponse get(Long id) {
         Optional<News> optionalNews = newsRepository.findById(id);
         if (optionalNews.isEmpty() || optionalNews.get().isArchived()) {
@@ -72,6 +75,8 @@ public class NewsServiceImpl implements NewsService {
      * @throws EntityNotFoundException if the archived news item is not found or is not archived.
      */
     @Override
+    @Transactional(readOnly = true)
+    @Cacheable(value = "api-cache",key = "#id")
     public NewsResponse getFromArchive(Long id) {
         Optional<News> optionalNews = newsRepository.findById(id);
 
@@ -128,6 +133,8 @@ public class NewsServiceImpl implements NewsService {
      * @return A {@link NewsResponse} representing the newly created news item.
      */
     @Override
+    @Transactional
+    @Cacheable(value = "api-cache",key = "#newsDto.title() + #newsDto.text")
     public NewsResponse create(NewsRequest newsDto) {
 
         News news = newsMapper.toEntity(newsDto);
@@ -152,6 +159,8 @@ public class NewsServiceImpl implements NewsService {
      * @throws EntityNotFoundException if the news item is not found or is archived.
      */
     @Override
+    @Transactional
+    @CachePut(value = "api-cache",key = "#id")
     public NewsResponse update(Long id, NewsRequest newsDto) {
         Optional<News> optionalNews = newsRepository.findById(id);
 
@@ -170,6 +179,7 @@ public class NewsServiceImpl implements NewsService {
      * @throws EntityNotFoundException if the news item is not found.
      */
     @Override
+    @Transactional
     public void archive(Long id) {
         News news = newsRepository.findById(id).orElseThrow(
                 () -> EntityNotFoundException.of(News.class, id)
@@ -188,7 +198,6 @@ public class NewsServiceImpl implements NewsService {
      * @return A List of {@link NewsResponse} objects representing the search results.
      */
     @Override
-    @Transactional(readOnly = true)
     public List<NewsResponse> search(String searchValue, Integer offset, Integer limit) {
         SearchSession searchSession = Search.session(entityManager);
 

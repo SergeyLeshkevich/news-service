@@ -20,7 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class NewsControllerIntegrationTest extends PostgresSQLContainerInitializer {
+class
+NewsControllerIntegrationTest extends PostgresSQLContainerInitializer {
 
     @Autowired
     MockMvc mockMvc;
