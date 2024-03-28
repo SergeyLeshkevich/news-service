@@ -20,7 +20,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Aspect
 @Component
-@Profile("prod")
+@Profile("dev")
 public class NewsAspect {
 
     private final CacheFactory<Long, NewsResponse> cacheFactory;

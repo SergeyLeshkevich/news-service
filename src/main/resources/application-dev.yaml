@@ -1,8 +1,4 @@
 spring:
-  data:
-    redis:
-      host: redis
-      port: 6379
   cloud:
     config:
       enabled: false
@@ -23,7 +19,7 @@ spring:
     password: admin
     driver-class-name: org.postgresql.Driver
     username: postgres
-    url: jdbc:postgresql://postgres-news:5432/nms_news_service
+    url: jdbc:postgresql://localhost:5432/nms_news_service
   main:
     allow-circular-references: true
 
@@ -33,7 +29,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://discovery-server:8761/eureka
+      defaultZone: http://localhost:8761/eureka
 
 logging:
   level:
@@ -44,6 +40,10 @@ logging:
             sql:
               BasicBinder: TRACE
         SQL: DEBUG
+
+cache:
+  algorithm: LRU
+  capacity: 6
 
 aop:
   logging:

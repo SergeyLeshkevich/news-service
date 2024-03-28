@@ -109,7 +109,7 @@ public interface NewsController {
                             content = @Content(schema = @Schema(implementation = PaginationResponse.class))),
                     @ApiResponse(
                             responseCode = "404",
-                            description = "Comment by ID not found",
+                            description = "News by ID not found",
                             content = @Content(schema = @Schema(implementation = IncorrectData.class))),
                     @ApiResponse(
                             responseCode = "400",
@@ -155,6 +155,10 @@ public interface NewsController {
                     @ApiResponse(
                             responseCode = "400",
                             description = "Invalid request body or input parameter",
+                            content = @Content(schema = @Schema(implementation = IncorrectData.class))),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "News by ID not found",
                             content = @Content(schema = @Schema(implementation = IncorrectData.class))),
                     @ApiResponse(
                             responseCode = "500",
